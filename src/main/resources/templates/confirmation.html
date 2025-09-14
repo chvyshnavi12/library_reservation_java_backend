@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        .confirm-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .confirm-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .confirm-btn:hover:not(:disabled) { background-color: #45a049; }
+        .footer { text-align: center; padding: 1rem; background-color: #333; color: white; margin-top: 2rem; font-size: 0.9rem; }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background: #00212A;
+            color: #f0f8ff;
+        }
+        
+        .confirmation-container {
+            background: #023047;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            margin: auto;
+            color: #ffffff;
+        }
+        
+        h2 {
+            color: #ffb703;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        #seatList {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #seatList li {
+            padding: 8px;
+            margin: 5px 0;
+            color: white;
+        }
+        
+        .download-btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #4CAF50; /* Changed to green */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #6469af;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container" id="printSection">
+        <h2>Booking Confirmation</h2>
+        <p><strong>User Name:</strong>
+            <span id="userName" th:text="${user.username}">John Doe</span>
+        </p>
+
+        <p><strong>Email:</strong>
+            <span id="userEmail" th:text="${user.email}">johndoe@example.com</span>
+        </p>
+
+        <p><strong>Booking Time:</strong>
+            <span id="bookingTime" th:text="${booking.time}">2/5/2025, 10:00 AM</span>
+        </p>
+
+        <p><strong>Floor Number:</strong>
+            <span id="floorNumber" th:text="${booking.floorNumber}">3</span>
+        </p>
+
+        <p><strong>Number of Seats Booked:</strong>
+            <span id="totalSeats" th:text="${booking.totalSeats}">2</span>
+        </p>
+
+        <p><strong>Booked Seats:</strong></p>
+        <ul>
+            <li th:each="seat : ${booking.seats}" th:text="${seat}">A1</li>
+        </ul>
+
+        <p>Thank you for reserving your seats.</p>
+    </div>
+
+    <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+    <button class="confirm-btn" onclick="window.location.href='/home'">
+        Go Back</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+
+        function downloadPDF() {
+            const element = document.getElementById('printSection');
+            html2pdf().from(element).save("Seat_Booking_Details.pdf");
+        }
+    </script>
+</body>
+</html>
