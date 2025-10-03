@@ -1,8 +1,11 @@
 FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
-# Copy Maven wrapper and project files if building inside Docker
+# Copy all project files
 COPY . .
+
+# Make the Maven wrapper executable
+RUN chmod +x mvnw
 
 # Build the project
 RUN ./mvnw clean package -DskipTests
