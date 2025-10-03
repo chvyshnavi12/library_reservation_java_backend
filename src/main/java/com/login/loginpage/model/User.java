@@ -30,8 +30,8 @@ public class User {
     private String studentId;
 
     // ✅ added to match your form
-    @Lob
-    @Column(name = "profile_image", columnDefinition = "LONGBLOB") // MySQL
-    private byte[] profileImage;
+   // @Lob
+   // @Column(name = "profile_image", columnDefinition = "LONGBLOB") // MySQL
+   // private byte[] profileImage;
 
 }

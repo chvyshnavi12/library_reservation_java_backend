@@ -47,7 +47,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model) {
         userRepo.save(user);
-        return "redirect:/";  // back to login
+        return "redirect:/loginpage";  // back to login
     }
 
     @PostMapping("/loginUser")
@@ -137,22 +137,6 @@ public class UserController {
     }
 
 
-    @PostMapping("/uploadImage")
-    public String uploadImage(@RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
-        User user = (User) session.getAttribute("loggedInUser");
-        if (user != null) {
-            user.setProfileImage(file.getBytes());
-            userRepo.save(user);
-        }
-        return "redirect:/home";
-    }
-
-    @GetMapping("/user/image/{id}")
-    @ResponseBody
-    public byte[] getUserImage(@PathVariable Integer id) {
-        User user = userRepo.findById(id).orElse(null);
-        return user != null ? user.getProfileImage() : null;
-    }
 
 
 
